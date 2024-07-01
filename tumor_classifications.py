@@ -226,8 +226,11 @@ for epoch in range(num_epochs):
 model.load_state_dict(torch.load('./models/final_model.h5'))
 
 # Testing model
+model.eval()
+
 test_correct = 0
 test_loss = 0
+num_val_batches = 0
 
 with torch.no_grad():
         for inputs, labels in test_loader:
@@ -241,6 +244,7 @@ with torch.no_grad():
 
             num_val_batches += 1
         test_acc = test_correct / len(test_loader.dataset)
+        test_loss /= num_val_batches
 
 
         print('Test Loss: {:.4f}, Test Acc: {:.4f}'.format(test_loss, test_acc))
